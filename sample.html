@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>カレンダーのサンプル</title>
+  <style></style>
+</head>
+<body>
+  <table border="1">
+    <caption id="cap"></caption>
+    <thead>
+      <tr>
+        <td>日</td><td>月</td><td>火</td><td>水</td><td>木</td><td>金</td><td>土</td>
+      </tr>
+    </thead>
+    <tbody id="calenderBody"></tbody>
+  </table>
+</body>
+  <script>
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    let first= new Date(year,month-1,1);
+    let last= new Date(year,month,0);
+    let nextMonth = new Date(year,month,1);
+    console.log(first);
+    console.log(last);
+    //今月の表示
+    var table_title = year+'年'+month+'月';
+    document.getElementById("cap").textContent = table_title;
+    //ここから日付を入れてゆく
+    let calen = "<tr>";
+    //空白を入れるやつ
+    for(let i =0;i<first.getDay();i++){
+      calen += "<td>&nbsp;</td>";
+    }
+    //1から最終日までいれるやつ
+    for(let i = 1;i<=last.getDate();i++){
+        var sampleDate = new Date(year,month-1,i);
+        if (sampleDate.getDay()===0) {
+          calen += "<tr><td>"+i+"</td>";
+        }else if(sampleDate.getDay()===6){
+          calen += "<td>"+i+"</td></tr>";
+        } else{
+          calen += "<td>"+i+"</td>";
+        }
+    }
+    if(6 !== last.getDay()){
+      for(let i=last.getDay()+1;i<=6;i++){
+      calen += "<td>&nbsp;</td>";
+    }
+    }
+    document.getElementById("calenderBody").innerHTML = calen;
+  </script>
+</html>
